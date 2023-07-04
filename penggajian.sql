@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 20 Jun 2023 pada 10.42
--- Versi server: 10.4.21-MariaDB
--- Versi PHP: 8.0.10
+-- Host: localhost:3306
+-- Generation Time: Jul 04, 2023 at 05:17 PM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,71 +24,73 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `absensi`
+-- Table structure for table `absensi`
 --
 
 CREATE TABLE `absensi` (
-  `id_absen` int(11) NOT NULL,
+  `id_absen` int NOT NULL,
   `nip` char(12) NOT NULL,
-  `masuk` int(11) NOT NULL,
-  `izin` int(11) NOT NULL,
-  `jam_lembur` int(11) NOT NULL,
+  `masuk` int NOT NULL,
+  `izin` int NOT NULL,
+  `jam_lembur` int NOT NULL,
   `periode` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `absensi`
+-- Dumping data for table `absensi`
 --
 
 INSERT INTO `absensi` (`id_absen`, `nip`, `masuk`, `izin`, `jam_lembur`, `periode`) VALUES
 (14, '1111', 26, 0, 4, '2023-06-01'),
 (15, '7777', 30, 0, 5, '2023-06-01'),
-(17, '9999', 25, 5, 1, '2023-06-01');
+(17, '9999', 25, 5, 1, '2023-06-01'),
+(18, '9999', 29, 0, 0, '2023-07-01');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `gaji`
+-- Table structure for table `gaji`
 --
 
 CREATE TABLE `gaji` (
   `id_gaji` char(11) NOT NULL,
   `nip` char(12) NOT NULL,
   `periode` date NOT NULL,
-  `gaji_pokok_edit` int(11) NOT NULL,
-  `bonus` int(11) NOT NULL,
-  `bayar_kasbon` int(11) NOT NULL,
-  `jumlah_gaji` int(11) NOT NULL
+  `gaji_pokok_edit` int NOT NULL,
+  `bonus` int NOT NULL,
+  `bayar_kasbon` int NOT NULL,
+  `jumlah_gaji` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `gaji`
+-- Dumping data for table `gaji`
 --
 
 INSERT INTO `gaji` (`id_gaji`, `nip`, `periode`, `gaji_pokok_edit`, `bonus`, `bayar_kasbon`, `jumlah_gaji`) VALUES
 ('GAJI001', '1111', '2023-06-01', 2500000, 0, 0, 2900000),
-('GAJI002', '7777', '2023-06-01', 25000000, 0, 0, 27000000);
+('GAJI002', '7777', '2023-06-01', 25000000, 0, 0, 27000000),
+('GAJI003', '9999', '2023-07-01', 2500000, 0, 0, 3350000);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jabatan`
+-- Table structure for table `jabatan`
 --
 
 CREATE TABLE `jabatan` (
-  `id_jabatan` int(11) NOT NULL,
+  `id_jabatan` int NOT NULL,
   `jabatan` char(25) NOT NULL,
-  `gaji_pokok` int(11) NOT NULL,
-  `tunjangan_jabatan` int(11) NOT NULL,
-  `uang_lembur` int(11) NOT NULL,
-  `jamsostek` int(11) NOT NULL,
-  `hari_kerja` int(11) NOT NULL,
-  `potongan_ijin` int(11) NOT NULL,
-  `potongan_absen` int(11) NOT NULL
+  `gaji_pokok` int NOT NULL,
+  `tunjangan_jabatan` int NOT NULL,
+  `uang_lembur` int NOT NULL,
+  `jamsostek` int NOT NULL,
+  `hari_kerja` int NOT NULL,
+  `potongan_ijin` int NOT NULL,
+  `potongan_absen` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `jabatan`
+-- Dumping data for table `jabatan`
 --
 
 INSERT INTO `jabatan` (`id_jabatan`, `jabatan`, `gaji_pokok`, `tunjangan_jabatan`, `uang_lembur`, `jamsostek`, `hari_kerja`, `potongan_ijin`, `potongan_absen`) VALUES
@@ -100,25 +102,51 @@ INSERT INTO `jabatan` (`id_jabatan`, `jabatan`, `gaji_pokok`, `tunjangan_jabatan
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pegawai`
+-- Table structure for table `keuangan`
+--
+
+CREATE TABLE `keuangan` (
+  `id_keuangan` bigint NOT NULL,
+  `nip` char(12) NOT NULL,
+  `jumlah_uang` float NOT NULL,
+  `tanggal` date NOT NULL,
+  `keterangan` text NOT NULL,
+  `jenis` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `keuangan`
+--
+
+INSERT INTO `keuangan` (`id_keuangan`, `nip`, `jumlah_uang`, `tanggal`, `keterangan`, `jenis`) VALUES
+(1, '1111', 10000, '2023-07-04', '', 1),
+(2, '9999', 20000, '2023-07-04', '', 1),
+(4, '9999', 23000000, '2023-07-04', '', 2),
+(6, '1111', 21000, '2023-07-04', '', 1),
+(7, '9999', 3350000, '2023-07-01', 'Gaji bulanan', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pegawai`
 --
 
 CREATE TABLE `pegawai` (
   `nip` char(12) NOT NULL,
   `nama` char(100) NOT NULL,
   `kelamin` char(25) NOT NULL,
-  `id_jabatan` int(11) NOT NULL,
+  `id_jabatan` int NOT NULL,
   `tempat_lahir` char(50) NOT NULL,
   `tgl_lahir` date NOT NULL,
   `alamat` text NOT NULL,
   `pendidikan_terakhir` char(25) NOT NULL,
   `no_hp` char(15) NOT NULL,
   `status` char(25) NOT NULL,
-  `kasbon` int(11) NOT NULL
+  `kasbon` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `pegawai`
+-- Dumping data for table `pegawai`
 --
 
 INSERT INTO `pegawai` (`nip`, `nama`, `kelamin`, `id_jabatan`, `tempat_lahir`, `tgl_lahir`, `alamat`, `pendidikan_terakhir`, `no_hp`, `status`, `kasbon`) VALUES
@@ -129,18 +157,18 @@ INSERT INTO `pegawai` (`nip`, `nama`, `kelamin`, `id_jabatan`, `tempat_lahir`, `
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
-  `id_user` int(11) NOT NULL,
+  `id_user` int NOT NULL,
   `username` char(25) NOT NULL,
   `password` varchar(255) NOT NULL,
   `level` char(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `level`) VALUES
@@ -156,78 +184,90 @@ INSERT INTO `user` (`id_user`, `username`, `password`, `level`) VALUES
 --
 
 --
--- Indeks untuk tabel `absensi`
+-- Indexes for table `absensi`
 --
 ALTER TABLE `absensi`
   ADD PRIMARY KEY (`id_absen`),
   ADD KEY `fk_nip_1` (`nip`);
 
 --
--- Indeks untuk tabel `gaji`
+-- Indexes for table `gaji`
 --
 ALTER TABLE `gaji`
   ADD PRIMARY KEY (`id_gaji`),
   ADD KEY `fk_nip_2` (`nip`);
 
 --
--- Indeks untuk tabel `jabatan`
+-- Indexes for table `jabatan`
 --
 ALTER TABLE `jabatan`
   ADD PRIMARY KEY (`id_jabatan`);
 
 --
--- Indeks untuk tabel `pegawai`
+-- Indexes for table `keuangan`
+--
+ALTER TABLE `keuangan`
+  ADD PRIMARY KEY (`id_keuangan`);
+
+--
+-- Indexes for table `pegawai`
 --
 ALTER TABLE `pegawai`
   ADD PRIMARY KEY (`nip`),
   ADD KEY `fk_jabatan` (`id_jabatan`);
 
 --
--- Indeks untuk tabel `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `absensi`
+-- AUTO_INCREMENT for table `absensi`
 --
 ALTER TABLE `absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_absen` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT untuk tabel `jabatan`
+-- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
-  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_jabatan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `user`
+-- AUTO_INCREMENT for table `keuangan`
+--
+ALTER TABLE `keuangan`
+  MODIFY `id_keuangan` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `absensi`
+-- Constraints for table `absensi`
 --
 ALTER TABLE `absensi`
   ADD CONSTRAINT `fk_nip_1` FOREIGN KEY (`nip`) REFERENCES `pegawai` (`nip`);
 
 --
--- Ketidakleluasaan untuk tabel `gaji`
+-- Constraints for table `gaji`
 --
 ALTER TABLE `gaji`
   ADD CONSTRAINT `fk_nip_2` FOREIGN KEY (`nip`) REFERENCES `pegawai` (`nip`);
 
 --
--- Ketidakleluasaan untuk tabel `pegawai`
+-- Constraints for table `pegawai`
 --
 ALTER TABLE `pegawai`
   ADD CONSTRAINT `fk_jabatan` FOREIGN KEY (`id_jabatan`) REFERENCES `jabatan` (`id_jabatan`);
