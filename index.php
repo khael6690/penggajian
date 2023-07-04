@@ -17,7 +17,9 @@ include 'head.php'
             <div class="row mt-5 pt-5">
                 <div class="col text-center">
                     <h2>Selamat Datang Di <?= $fungsi->config()['judul'] ?></h2>
-                    <img src="<?= $fungsi->config()['url'] ?>/assets/img/logo.png">
+
+                    <h3><?= $fungsi->config()['perusahaan']; ?></h3>
+                    <h4><?= $fungsi->config()['alamat_perusahaan']; ?></h4>
                 </div>
             </div>
         </div>

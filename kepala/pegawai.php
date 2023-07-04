@@ -47,7 +47,7 @@ include 'head.php'
 												<td><?= $val['kelamin'] ?></td>
 												<td><?= $jabatan[0]['jabatan'] ?></td>
 												<td><button type="button" data-toggle="modal" data-target="#des<?= $val['nip'] ?>" class="btn btn-success">Details</button>
-													<div class="modal fade" id="des<?= $val['nip'] ?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+													<div class="modal fade" id="des<?= $val['nip'] ?>" tabindex="-1" role="dialog">
 														<div class="modal-dialog modal-md" role="document">
 															<div class="modal-content">
 																<div class="modal-header">

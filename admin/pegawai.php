@@ -61,7 +61,7 @@ include 'head.php';
 														<a href="?page=delete&id=<?= $val['nip'] ?>" class="btn btn-danger m-1" onclick="return confirm('Apakah Ingin Menghapus Data Ini?');"><i class="fas fa-trash"></i></a>
 														<a href="?page=update&id=<?= $val['nip'] ?>" class="btn btn-info m-1"><i class="fas fa-pencil-alt"></i></a>
 														<a href="gaji.php?page=periode&nip=<?= $val['nip'] ?>" class="btn btn-primary m-1">Beri Gaji</a>
-														<div class="modal fade" id="des<?= $val['nip'] ?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+														<div class="modal fade" id="des<?= $val['nip'] ?>" tabindex="-1" role="dialog">
 															<div class="modal-dialog modal-md" role="document">
 																<div class="modal-content">
 																	<div class="modal-header">

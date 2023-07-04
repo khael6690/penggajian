@@ -56,7 +56,7 @@ include 'head.php';
 														<button type="button" data-toggle="modal" data-target="#des<?= $val['id_jabatan'] ?>" class="btn btn-success"><i class="far fa-eye"></i></button>
 														<a href="?page=delete&id=<?= $val['id_jabatan'] ?>" class="btn btn-danger m-1" onclick="return confirm('Apakah Ingin Menghapus Data Ini?');"><i class="fas fa-trash"></i></a>
 														<a href="?page=update&id=<?= $val['id_jabatan'] ?>" class="btn btn-info m-1"><i class="fas fa-pencil-alt"></i></a>
-														<div class="modal fade" id="des<?= $val['id_jabatan'] ?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+														<div class="modal fade" id="des<?= $val['id_jabatan'] ?>" tabindex="-1" role="dialog">
 															<div class="modal-dialog modal-md" role="document">
 																<div class="modal-content">
 																	<div class="modal-header">

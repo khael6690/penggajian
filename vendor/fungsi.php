@@ -7,9 +7,9 @@ class Gaji
 	{
 		$config['url'] = 'http://localhost/penggajian';
 		$config['judul'] = 'Sistem Penggajian';
-		$config['perusahaan'] = 'Google';
-		$config['alamat_perusahaan'] = 'Jalan';
-		$config['nama_atasan'] = 'Your Major';
+		$config['perusahaan'] = 'PT. Mega Baja Cirebon';
+		$config['alamat_perusahaan'] = 'Jl. Jendral Sudirman No.24 Penggung Utara';
+		$config['nama_atasan'] = 'Tomi';
 		return $config;
 	}
 

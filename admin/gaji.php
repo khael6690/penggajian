@@ -78,7 +78,6 @@ include 'head.php';
 					$potabsen = $result[0]['potongan_absen'] * $absen;
 					$totalpotongan = $result[0]['jamsostek'] + $potizin + $potabsen + $result[0]['bayar_kasbon'];
 					$totalgaji = $gajikotor - $totalpotongan;
-					$gajiterbilang = terbilangIDR($totalgaji);
 					if ($totalgaji <= 0) {
 						$totalgaji = 0;
 					}
@@ -155,10 +154,18 @@ include 'head.php';
 				'bayar_kasbon' => $_POST['bayar_kasbon'],
 				'jumlah_gaji' => $jumlah_gaji
 			);
+			$keuanganData = array(
+				'nip' => $_POST['nip'],
+				'tanggal' => $_GET['periode'] . '-01',
+				'jumlah_uang' => $jumlah_gaji,
+				'keterangan' => 'Gaji bulanan',
+				'jenis' => 1
+			);
 			$sisa_kasbon = $result[0]['kasbon'] - $_POST['bayar_kasbon'];
 			$editkas = array('kasbon' => $sisa_kasbon);
 			$kasbonsisa = $data->updateDB('pegawai', $editkas, 'nip', $_POST['nip']);
 			$result = $data->insertDB('gaji', $post);
+			$data->insertDB('keuangan', $keuanganData);
 			if ($result) {
 				$fungsi->flash('alert', 'toastr["success"]("Berhasil Di Tambahkan");');
 				echo '<script type="text/javascript">' . $fungsi->flash('alert') . ' 

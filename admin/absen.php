@@ -87,7 +87,6 @@ include 'head.php';
 			echo '<script type="text/javascript">' . $fungsi->flash('alert') . '</script>';
 		} else {
 			$post = array(
-				'id_absen' => '',
 				'nip' => $_POST['nip'],
 				'masuk' => $_POST['masuk'],
 				'izin' => $_POST['izin'],

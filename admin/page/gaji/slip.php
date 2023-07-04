@@ -111,16 +111,10 @@
 								</td>
 							</tr>
 							<tr>
-								<td>
-									<h4 class="pt-4">Terbilang</h4>
-								</td>
-								<td> 
-									<h6 class="pt-4"><?=ucfirst(strtolower($gajiterbilang)); ?></h6>
-								</td>
-								<td>
+								<td colspan="2" style="text-align: right;">
 									<h4 class="pt-4">Total Gaji</h4>
 								</td>
-								<td>
+								<td colspan="2">
 									<h6 class="pt-4">Rp. <?= number_format($totalgaji, 0, ',', '.') ?></h6>
 								</td>
 							</tr>

@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 08 Agu 2018 pada 07.04
--- Versi Server: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Waktu pembuatan: 20 Jun 2023 pada 10.42
+-- Versi server: 10.4.21-MariaDB
+-- Versi PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -40,10 +41,9 @@ CREATE TABLE `absensi` (
 --
 
 INSERT INTO `absensi` (`id_absen`, `nip`, `masuk`, `izin`, `jam_lembur`, `periode`) VALUES
-(5, '123', 1, 1, 1, '2018-08-01'),
-(6, '123', 1, 1, 1, '2018-09-01'),
-(7, '123', 26, 0, 0, '2018-10-01'),
-(8, '777', 24, 2, 4, '2018-08-01');
+(14, '1111', 26, 0, 4, '2023-06-01'),
+(15, '7777', 30, 0, 5, '2023-06-01'),
+(17, '9999', 25, 5, 1, '2023-06-01');
 
 -- --------------------------------------------------------
 
@@ -66,10 +66,8 @@ CREATE TABLE `gaji` (
 --
 
 INSERT INTO `gaji` (`id_gaji`, `nip`, `periode`, `gaji_pokok_edit`, `bonus`, `bayar_kasbon`, `jumlah_gaji`) VALUES
-('GAJI001', '123', '2018-08-01', 1000000, 0, 0, -151000),
-('GAJI002', '123', '2018-09-01', 1000000, 0, 0, -151000),
-('GAJI003', '123', '2018-10-01', 1000000, 0, 0, 1000000),
-('GAJI004', '777', '2018-08-01', 1000000, 0, 90000, 1397000);
+('GAJI001', '1111', '2023-06-01', 2500000, 0, 0, 2900000),
+('GAJI002', '7777', '2023-06-01', 25000000, 0, 0, 27000000);
 
 -- --------------------------------------------------------
 
@@ -94,8 +92,10 @@ CREATE TABLE `jabatan` (
 --
 
 INSERT INTO `jabatan` (`id_jabatan`, `jabatan`, `gaji_pokok`, `tunjangan_jabatan`, `uang_lembur`, `jamsostek`, `hari_kerja`, `potongan_ijin`, `potongan_absen`) VALUES
-(2, 'OB', 1000000, 100000, 100000, 100000, 26, 1000, 50000),
-(3, 'Kuli', 1200000, 100000, 50000, 100000, 26, 10000, 50000);
+(2, 'OB', 1500000, 100000, 100000, 100000, 26, 1000, 50000),
+(3, 'Kuli', 1200000, 100000, 50000, 100000, 26, 10000, 50000),
+(5, 'Head Staff', 15000000, 2000000, 200000, 1000000, 30, 200000, 200000),
+(6, 'Staff Marketing', 2500000, 1000000, 100000, 100000, 30, 50000, 50000);
 
 -- --------------------------------------------------------
 
@@ -122,8 +122,9 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`nip`, `nama`, `kelamin`, `id_jabatan`, `tempat_lahir`, `tgl_lahir`, `alamat`, `pendidikan_terakhir`, `no_hp`, `status`, `kasbon`) VALUES
-('123', 'Sad', 'Laki-laki', 2, 'Cirebon', '2018-08-08', 'Jalan', 'SMP', '911', 'Nikah', 0),
-('777', 'hhh', 'Laki-laki', 2, 'Cirebon', '2000-08-09', 'llll', 'sma', '098887', 'Belum Nikah', 0);
+('1111', 'maman', 'Laki-laki', 2, 'Brebes', '1996-02-02', 'test', 'sd', '089812371', 'Belum Nikah', 0),
+('7777', 'abdul', 'Laki-laki', 5, 'cirebon', '1996-02-03', 'test', 's1', '08971263123', 'Belum Nikah', 0),
+('9999', 'dewi', 'Perempuan', 6, 'losari', '1999-03-03', 'Jl. apa gatau', 's1', '0897616236', 'Belum Nikah', 0);
 
 -- --------------------------------------------------------
 
@@ -134,7 +135,7 @@ INSERT INTO `pegawai` (`nip`, `nama`, `kelamin`, `id_jabatan`, `tempat_lahir`, `
 CREATE TABLE `user` (
   `id_user` int(11) NOT NULL,
   `username` char(25) NOT NULL,
-  `password` char(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `level` char(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -145,65 +146,70 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id_user`, `username`, `password`, `level`) VALUES
 (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', '1'),
 (2, 'kepala', '870f669e4bbbfa8a6fde65549826d1c4', '2'),
-(3, '123', '7363a0d0604902af7b70b271a0b96480', '3'),
-(4, '777', '74be16979710d4c4e7c6647856088456', '3');
+(7, '123456', '14e1b600b1fd579f47433b88e8d85291', '3'),
+(8, '1111', 'b59c67bf196a4758191e42f76670ceba', '3'),
+(9, '7777', 'd79c8788088c2193f0244d8f1f36d2db', '3'),
+(10, '9999', 'fa246d0262c3925617b0c72bb20eeb1d', '3');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `absensi`
+-- Indeks untuk tabel `absensi`
 --
 ALTER TABLE `absensi`
   ADD PRIMARY KEY (`id_absen`),
   ADD KEY `fk_nip_1` (`nip`);
 
 --
--- Indexes for table `gaji`
+-- Indeks untuk tabel `gaji`
 --
 ALTER TABLE `gaji`
   ADD PRIMARY KEY (`id_gaji`),
   ADD KEY `fk_nip_2` (`nip`);
 
 --
--- Indexes for table `jabatan`
+-- Indeks untuk tabel `jabatan`
 --
 ALTER TABLE `jabatan`
   ADD PRIMARY KEY (`id_jabatan`);
 
 --
--- Indexes for table `pegawai`
+-- Indeks untuk tabel `pegawai`
 --
 ALTER TABLE `pegawai`
   ADD PRIMARY KEY (`nip`),
   ADD KEY `fk_jabatan` (`id_jabatan`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `absensi`
+-- AUTO_INCREMENT untuk tabel `absensi`
 --
 ALTER TABLE `absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
 --
--- AUTO_INCREMENT for table `jabatan`
+-- AUTO_INCREMENT untuk tabel `jabatan`
 --
 ALTER TABLE `jabatan`
-  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
@@ -225,6 +231,7 @@ ALTER TABLE `gaji`
 --
 ALTER TABLE `pegawai`
   ADD CONSTRAINT `fk_jabatan` FOREIGN KEY (`id_jabatan`) REFERENCES `jabatan` (`id_jabatan`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

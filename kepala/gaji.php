@@ -33,7 +33,7 @@ include 'head.php'
 					$potabsen = $result[0]['potongan_absen'] * $absen;
 					$totalpotongan = $result[0]['jamsostek'] + $potizin + $potabsen + $result[0]['bayar_kasbon'];
 					$totalgaji = $gajikotor - $totalpotongan;
-					$gajiterbilang = terbilangIDR($totalgaji);
+
 					if ($totalgaji <= 0) {
 						$totalgaji = 0;
 					}
