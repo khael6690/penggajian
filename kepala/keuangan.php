@@ -10,19 +10,6 @@ include 'head.php';
     <main>
         <div class="container">
             <div class="row justify-content-md-center mt-5 p-5">
-
-                <?php
-                if (@$_GET['page'] == 'tambah') {
-
-                    include 'page/keuangan/tambah.php';
-                } elseif (@$_GET['page'] == 'update' && isset($_GET['id'])) {
-                    $result = $data->viewDB('keuangan', 'id_keuangan', $_GET['id']);
-                    if ($_GET['id'] != $result[0]['id_keuangan']) {
-                        header('location:keuangan.php');
-                    }
-
-                    include 'page/keuangan/update.php';
-                } else { ?>
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
@@ -57,10 +44,7 @@ include 'head.php';
                                                     <td><?= $val['jenis'] == 1 ? 'Rp.' . number_format($val['jumlah_uang'], 0, ',', '.') : '....' ?></td>
                                                     <td><?= $val['tanggal']; ?></td>
                                                     <td>
-                                                        <button type="button" data-toggle="modal" data-target="#des<?= $val['id_keuangan'] ?>" class="btn btn-success"><i class="far fa-eye"></i></button>
-                                                        <a href="?page=update&id=<?= $val['id_keuangan'] ?>" class="btn btn-info m-1"><i class="fas fa-pencil-alt"></i></a>
-                                                        <a href="?page=delete&id=<?= $val['id_keuangan'] ?>" class="btn btn-danger m-1" onclick="return confirm('Apakah Ingin Menghapus Data Ini?');"><i class="fas fa-trash"></i></a>
-
+                                                        <button type="button" data-toggle="modal" data-target="#des<?= $val['id_keuangan'] ?>" class="btn btn-success"><i class="far fa-eye"></i> Details</button>
 
                                                         <!-- modal detail -->
                                                         <div class="modal fade" id="des<?= $val['id_keuangan'] ?>" tabindex="-1" role="dialog">
@@ -126,7 +110,6 @@ include 'head.php';
                             </div>
                         </div>
                     </div>
-                <?php } ?>
             </div>
         </div>
     </main>
@@ -223,57 +206,6 @@ include 'head.php';
             });
         });
     </script>
-    <?php
-
-    if (@$_GET['page'] == 'tambah' && isset($_POST['submit'])) {
-        $post = array(
-            'nip' => $_POST['nip'],
-            'jumlah_uang' => $_POST['jumlah_uang'],
-            'tanggal' => $_POST['tanggal'],
-            'keterangan' => $_POST['keterangan'],
-            'jenis' => $_POST['jenis']
-        );
-        // print_r($post);die;
-        $result = $data->insertDB('keuangan', $post);
-        if ($result) {
-            $fungsi->flash('alert', 'toastr["success"]("Berhasil Di Tambahkan");');
-            echo '<script type="text/javascript">' . $fungsi->flash('alert') . ' 
-	                				setTimeout(function(){ window.location="' . $fungsi->config()["url"] . '/admin/keuangan.php"; }, 1500);</script>';
-        } else {
-            $fungsi->flash('alert', 'toastr["error"]("Gagal Di Tambahkan");');
-            echo '<script type="text/javascript">' . $fungsi->flash('alert') . '</script>';
-        }
-    } elseif (@$_GET['page'] == 'update' && isset($_GET['id']) && isset($_POST['submit'])) {
-        $post = array(
-            'nip' => $_POST['nip'],
-            'jumlah_uang' => $_POST['jumlah_uang'],
-            'tanggal' => $_POST['tanggal'],
-            'keterangan' => $_POST['keterangan'],
-            'jenis' => $_POST['jenis']
-        );
-        // print_r($post);die;
-        $result = $data->updateDB('keuangan', $post, 'id_keuangan', $_POST['id_keuangan']);
-        if ($result) {
-            $fungsi->flash('alert', 'toastr["success"]("Berhasil Di Update");');
-            echo '<script type="text/javascript">' . $fungsi->flash('alert') . ' 
-	                				setTimeout(function(){ window.location="' . $fungsi->config()["url"] . '/admin/keuangan.php"; }, 1500);</script>';
-        } else {
-            $fungsi->flash('alert', 'toastr["error"]("Gagal Di Update");');
-            echo '<script type="text/javascript">' . $fungsi->flash('alert') . '</script>';
-        }
-    } elseif (@$_GET['page'] == 'delete' && isset($_GET['id'])) {
-        $result = $data->deleteDB('keuangan', 'id_keuangan', $_GET['id']);
-        if ($result) {
-            $fungsi->flash('alert', 'toastr["success"]("Berhasil Di Hapus")');
-            echo '<script type="text/javascript">' . $fungsi->flash('alert') . '
-	                				$("#example").load(location.href + " #example");
-	                				setTimeout(function(){ window.location="' . $fungsi->config()["url"] . '/admin/keuangan.php"; }, 1500);</script>';
-        } else {
-            $fungsi->flash('alert', 'toastr["error"]("Gagal Di Hapus")');
-            echo '<script type="text/javascript">' . $fungsi->flash('alert') . '</script>';
-        }
-    }
-    ?>
     <script type="text/javascript">
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function() {

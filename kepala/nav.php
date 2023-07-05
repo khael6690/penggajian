@@ -22,6 +22,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $fungsi->config()['url'] ?>/kepala/gaji.php">Gaji</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $fungsi->config()['url'] ?>/kepala/keuangan.php">Keuangan</a>
+                </li>
             </ul>
             <ul class="navbar-nav nav-flex-icons">
                 <li class="nav-item">
