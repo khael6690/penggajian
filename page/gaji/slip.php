@@ -1,5 +1,6 @@
 <div class="col-lg-10">
-	<a href="#" id="cetak" class="btn btn-primary"><i class="fa fa-print"></i> Print</a>
+	<a href="#" id="cetak" class="btn btn-primary mb-3"><i class="fa fa-print"></i> Print</a>
+	<a href="<?= $fungsi->config()['url'] ?>/admin/gaji.php" class="btn btn-danger mb-3"><i class="fa fa-print"></i>Kembali</a>
 	<print id="areaprint">
 		<style type="text/css">
 			@page {
@@ -8,13 +9,13 @@
 			}
 		</style>
 		<div class="card">
-			<div class="card-header info-color white-text text-center py-4">
+			<div class="card-header info-color white-text text-center py-3">
 				<h3><strong><?= $fungsi->config()['perusahaan'] ?></strong></h3>
 				<small><?= $fungsi->config()['alamat_perusahaan'] ?></small>
 			</div>
 			<br>
-			<div class="card-body px-lg-5 pt-0">
-				<div class="text-center py-4">
+			<div class="card-body px-lg-5">
+				<div class="text-center">
 					<h5><strong>Slip Gaji #<?= $id ?></strong></h5>
 					<p>Periode : <?= date('F Y', strtotime($result[0]['periode'])) ?></p>
 				</div>

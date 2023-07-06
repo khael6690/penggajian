@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html>
-
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?= $fungsi->config()['judul'] ?></title>
-    <link rel="stylesheet" type="text/css" href="<?= $fungsi->config()['url'] ?>/assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="<?= $fungsi->config()['url'] ?>/assets/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="<?= $fungsi->config()['url'] ?>/assets/compiled/svg/favicon.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="<?= $fungsi->config()['url'] ?>/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="<?= $fungsi->config()['url'] ?>/assets/compiled/css/table-datatable-jquery.css" />
+    <link rel="stylesheet" href="<?= $fungsi->config()['url'] ?>/assets/extensions/sweetalert2/sweetalert2.min.css" />
+    <link rel="stylesheet" href="<?= $fungsi->config()['url'] ?>/assets/extensions/choices.js/public/assets/styles/choices.css" />
+    <link rel="stylesheet" href="<?= $fungsi->config()['url'] ?>/assets/compiled/css/app.css" />
+    <link rel="stylesheet" href="<?= $fungsi->config()['url'] ?>/assets/compiled/css/app-dark.css" />
 </head>

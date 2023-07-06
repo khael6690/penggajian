@@ -1,136 +1,173 @@
 <?php
 include 'built_in.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<?php
 include 'head.php';
 ?>
 
-<body class="bg-light">
-	<?php
-	include 'nav.php'
-	?>
-	<main>
-		<div class="container">
-			<div class="row justify-content-md-center mt-5 p-5">
+<body>
+	<script src="<?= $fungsi->config()['url'] ?>/assets/static/js/initTheme.js"></script>
 
-				<?php
+	<div id="app">
+		<?php
+		$title = 'keuangan';
+		include 'sidebar.php'
+		?>
+		<div id="main">
+			<header class="mb-3">
+				<a href="#" class="burger-btn d-block d-xl-none">
+					<i class="bi bi-justify fs-3"></i>
+				</a>
+			</header>
 
-				if (@$_GET['page'] == 'tambah' && isset($_GET['nip']) && isset($_GET['periode'])) {
-					if (empty($_GET['periode'])) {
-						header('location:gaji.php?page=periode&nip=' . $_GET['nip']);
-					}
-					$nip = $_GET['nip'];
-					$periode = $_GET['periode'] . '-01';
-					$result = $data->cosviewDB("SELECT * FROM jabatan,pegawai,absensi WHERE pegawai.nip='$nip' AND pegawai.nip=absensi.nip AND jabatan.id_jabatan=pegawai.id_jabatan AND absensi.periode='$periode'");
-					if ($_GET['nip'] != $result[0]['nip']) {
-						header('location:absen.php?i=absen-kosong');
-					}
-					$absen = $result[0]['hari_kerja'] - $result[0]['masuk'];
-					if ($absen <= 0) {
-						$absen = 0;
-					}
-					$uang_lembur = $result[0]['uang_lembur'] * $result[0]['jam_lembur'];
-					$gajikotor = $result[0]['gaji_pokok'] + $result[0]['tunjangan_jabatan'] + $uang_lembur;
-					$potizin = $result[0]['potongan_ijin'] * $result[0]['izin'];
-					$potabsen = $result[0]['potongan_absen'] * $absen;
-					$totalpotongan = $result[0]['jamsostek'] + $potizin + $potabsen + $result[0]['kasbon'];
+			<div class="page-heading">
+				<div class="page-title">
+					<div class="row">
+						<div class="col-12 col-md-6 order-md-1 order-last">
+							<h3>Gaji</h3>
+						</div>
+						<div class="col-12 col-md-6 order-md-2 order-first">
+							<nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item">
+										<a href="<?= $fungsi->config()['url'] ?>">Dashboard</a>
+									</li>
+									<li class="breadcrumb-item active" aria-current="page">
+										Gaji
+									</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
 
-					include 'page/gaji/tambah.php';
-				} elseif (@$_GET['page'] == 'update' && isset($_GET['id'])) {
-					$id = $_GET['id'];
-					$result = $data->cosviewDB("SELECT * FROM jabatan,pegawai,absensi,gaji WHERE pegawai.nip=gaji.nip AND absensi.nip=gaji.nip AND jabatan.id_jabatan=pegawai.id_jabatan AND gaji.id_gaji='$id' AND absensi.periode=gaji.periode");
-					if ($_GET['id'] != $result[0]['id_gaji']) {
-						header('location:gaji.php');
-					}
+			<div class="page-content">
+				<section class="row justify-content-center">
+					<?php
+					if (@$_GET['page'] == 'tambah' && isset($_GET['nip']) && isset($_GET['periode'])) {
+						if (empty($_GET['periode'])) {
+							header('location:gaji.php?page=periode&nip=' . $_GET['nip']);
+						}
+						$nip = $_GET['nip'];
+						$periode = $_GET['periode'] . '-01';
+						$result = $data->cosviewDB("SELECT * FROM jabatan,pegawai,absensi WHERE pegawai.nip='$nip' AND pegawai.nip=absensi.nip AND jabatan.id_jabatan=pegawai.id_jabatan AND absensi.periode='$periode'");
+						if ($_GET['nip'] != $result[0]['nip']) {
+							header('location:absen.php?i=absen-kosong');
+						}
+						$absen = $result[0]['hari_kerja'] - $result[0]['masuk'];
+						if ($absen <= 0) {
+							$absen = 0;
+						}
+						$uang_lembur = $result[0]['uang_lembur'] * $result[0]['jam_lembur'];
+						$gajikotor = $result[0]['gaji_pokok'] + $result[0]['tunjangan_jabatan'] + $uang_lembur;
+						$potizin = $result[0]['potongan_ijin'] * $result[0]['izin'];
+						$potabsen = $result[0]['potongan_absen'] * $absen;
+						$totalpotongan = $result[0]['jamsostek'] + $potizin + $potabsen + $result[0]['kasbon'];
 
-					$absen = $result[0]['hari_kerja'] - $result[0]['masuk'];
-					if ($absen <= 0) {
-						$absen = 0;
-					}
-					$uang_lembur = $result[0]['uang_lembur'] * $result[0]['jam_lembur'];
-					$gajikotor = $result[0]['gaji_pokok_edit'] + $result[0]['tunjangan_jabatan'] + $uang_lembur;
-					$potizin = $result[0]['potongan_ijin'] * $result[0]['izin'];
-					$potabsen = $result[0]['potongan_absen'] * $absen;
-					$totalpotongan = $result[0]['jamsostek'] + $potizin + $potabsen;
+						include 'page/gaji/tambah.php';
+					} elseif (@$_GET['page'] == 'update' && isset($_GET['id'])) {
+						$id = $_GET['id'];
+						$result = $data->cosviewDB("SELECT * FROM jabatan,pegawai,absensi,gaji WHERE pegawai.nip=gaji.nip AND absensi.nip=gaji.nip AND jabatan.id_jabatan=pegawai.id_jabatan AND gaji.id_gaji='$id' AND absensi.periode=gaji.periode");
+						if ($_GET['id'] != $result[0]['id_gaji']) {
+							header('location:gaji.php');
+						}
 
-					include 'page/gaji/update.php';
-				} elseif (@$_GET['page'] == 'periode' && isset($_GET['nip'])) {
-					$nip = $_GET['nip'];
-					$result = $data->viewDB('absensi', 'nip', $nip);
-					if ($_GET['nip'] != $result[0]['nip']) {
-						header('location:gaji.php');
-					}
+						$absen = $result[0]['hari_kerja'] - $result[0]['masuk'];
+						if ($absen <= 0) {
+							$absen = 0;
+						}
+						$uang_lembur = $result[0]['uang_lembur'] * $result[0]['jam_lembur'];
+						$gajikotor = $result[0]['gaji_pokok_edit'] + $result[0]['tunjangan_jabatan'] + $uang_lembur;
+						$potizin = $result[0]['potongan_ijin'] * $result[0]['izin'];
+						$potabsen = $result[0]['potongan_absen'] * $absen;
+						$totalpotongan = $result[0]['jamsostek'] + $potizin + $potabsen;
 
-					include 'page/gaji/periode.php';
-				} elseif (@$_GET['page'] == 'view' && isset($_GET['id'])) {
-					$id = $_GET['id'];
-					$result = $data->cosviewDB("SELECT * FROM jabatan,pegawai,absensi,gaji WHERE pegawai.nip=gaji.nip AND absensi.nip=gaji.nip AND jabatan.id_jabatan=pegawai.id_jabatan AND gaji.id_gaji='$id' AND gaji.periode=absensi.periode");
-					if ($_GET['id'] != $result[0]['id_gaji']) {
-						header('location:gaji.php');
-					}
+						include 'page/gaji/update.php';
+					} elseif (@$_GET['page'] == 'periode' && isset($_GET['nip'])) {
+						$nip = $_GET['nip'];
+						$result = $data->viewDB('absensi', 'nip', $nip);
+						if ($_GET['nip'] != $result[0]['nip']) {
+							header('location:gaji.php');
+						}
 
-					$absen = $result[0]['hari_kerja'] - $result[0]['masuk'];
-					if ($absen <= 0) {
-						$absen = 0;
-					}
+						include 'page/gaji/periode.php';
+					} elseif (@$_GET['page'] == 'view' && isset($_GET['id'])) {
+						$id = $_GET['id'];
+						$result = $data->cosviewDB("SELECT * FROM jabatan,pegawai,absensi,gaji WHERE pegawai.nip=gaji.nip AND absensi.nip=gaji.nip AND jabatan.id_jabatan=pegawai.id_jabatan AND gaji.id_gaji='$id' AND gaji.periode=absensi.periode");
+						if ($_GET['id'] != $result[0]['id_gaji']) {
+							header('location:gaji.php');
+						}
 
-					$uang_lembur = $result[0]['uang_lembur'] * $result[0]['jam_lembur'];
-					$gajikotor = $result[0]['gaji_pokok_edit'] + $result[0]['tunjangan_jabatan'] + $uang_lembur;
-					$potizin = $result[0]['potongan_ijin'] * $result[0]['izin'];
-					$potabsen = $result[0]['potongan_absen'] * $absen;
-					$totalpotongan = $result[0]['jamsostek'] + $potizin + $potabsen + $result[0]['bayar_kasbon'];
-					$totalgaji = $gajikotor - $totalpotongan;
-					if ($totalgaji <= 0) {
-						$totalgaji = 0;
-					}
+						$absen = $result[0]['hari_kerja'] - $result[0]['masuk'];
+						if ($absen <= 0) {
+							$absen = 0;
+						}
 
-					include 'page/gaji/slip.php';
-				} else { ?>
-					<div class="col-lg-12">
-						<div class="card">
-							<div class="card-header">
-								<h3 class="text-center">Data Gaji</h3>
-							</div>
-							<div class="card-body">
-								<div class="table-responsive">
-									<table id="example" class="table table-striped table-bordered" style="width:100%">
-										<thead>
-											<tr>
-												<th>#</th>
-												<th>ID Slip Gaji</th>
-												<th>Nama Pegawai (NIP)</th>
-												<th>Periode</th>
-												<th>Aksi</th>
-											</tr>
-										</thead>
-										<tbody>
-											<?php
-											$no = 1;
-											$row = $data->viewDB('gaji');
-											foreach ($row as $val) {
-												$pegawai = $data->viewDB('pegawai', 'nip', $val['nip']);
-											?>
+						$uang_lembur = $result[0]['uang_lembur'] * $result[0]['jam_lembur'];
+						$gajikotor = $result[0]['gaji_pokok_edit'] + $result[0]['tunjangan_jabatan'] + $uang_lembur;
+						$potizin = $result[0]['potongan_ijin'] * $result[0]['izin'];
+						$potabsen = $result[0]['potongan_absen'] * $absen;
+						$totalpotongan = $result[0]['jamsostek'] + $potizin + $potabsen + $result[0]['bayar_kasbon'];
+						$totalgaji = $gajikotor - $totalpotongan;
+						if ($totalgaji <= 0) {
+							$totalgaji = 0;
+						}
+
+						include 'page/gaji/slip.php';
+					} else { ?>
+						<div class="col-lg-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="text-center">Data Gaji</h3>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table id="example" class="table table-striped">
+											<thead>
 												<tr>
-													<td><?= $no ?></td>
-													<td><?= $val['id_gaji'] ?></td>
-													<td><?= $pegawai[0]['nama'] ?> (<?= $val['nip'] ?>)</td>
-													<td><?= date('F Y', strtotime($val['periode'])) ?></td>
-													<td>
-														<a href="?page=delete&id=<?= $val['id_gaji'] ?>" class="btn btn-danger" onclick="return confirm('Apakah Ingin Menghapus Data Ini?');"><i class="fas fa-trash"></i></a>
-														<a href="?page=update&id=<?= $val['id_gaji'] ?>" class="btn btn-info"><i class="fas fa-pencil-alt"></i></a> <a href="?page=view&id=<?= $val['id_gaji'] ?>" target="_blank" class="btn btn-success"><i class="far fa-eye"></i></a>
-													</td>
+													<th>#</th>
+													<th>ID Slip Gaji</th>
+													<th>Nama Pegawai (NIP)</th>
+													<th>Periode</th>
+													<th>Aksi</th>
 												</tr>
-											<?php $no++;
-											}
-											?>
-										</tbody>
-									</table>
+											</thead>
+											<tbody>
+												<?php
+												$no = 1;
+												$row = $data->viewDB('gaji');
+												foreach ($row as $val) {
+													$pegawai = $data->viewDB('pegawai', 'nip', $val['nip']);
+												?>
+													<tr>
+														<td><?= $no ?></td>
+														<td><?= $val['id_gaji'] ?></td>
+														<td><?= $pegawai[0]['nama'] ?> (<?= $val['nip'] ?>)</td>
+														<td><?= date('F Y', strtotime($val['periode'])) ?></td>
+														<td>
+															<a href="?page=view&id=<?= $val['id_gaji'] ?>" class="btn btn-success"><i class="bi bi-eye"></i> Details</a>
+															<a href="?page=update&id=<?= $val['id_gaji'] ?>" class="btn icon btn-primary m-1"><i class="bi bi-pencil"></i></a>
+															<a href="?page=delete&id=<?= $val['id_gaji'] ?>" class="btn icon btn-danger m-1" onclick="return confirm('Apakah Ingin Menghapus Data Ini?');"><i class="bi bi-trash"></i></a>
+														</td>
+													</tr>
+												<?php $no++;
+												}
+												?>
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				<?php } ?>
+					<?php } ?>
+				</section>
 			</div>
 		</div>
-	</main>
+	</div>
 
 	<?php
 	include 'foot.php';
@@ -167,11 +204,11 @@ include 'head.php';
 			$result = $data->insertDB('gaji', $post);
 			$data->insertDB('keuangan', $keuanganData);
 			if ($result) {
-				$fungsi->flash('alert', 'toastr["success"]("Berhasil Di Tambahkan");');
+				$fungsi->flash('alert',  'Toast.fire({icon: "success",title: "Berhasil ditambahkan!"})');
 				echo '<script type="text/javascript">' . $fungsi->flash('alert') . ' 
 	                				setTimeout(function(){ window.location="' . $fungsi->config()["url"] . '/admin/gaji.php?page=view&id=' . $post["id_gaji"] . '"; }, 2000);</script>';
 			} else {
-				$fungsi->flash('alert', 'toastr["error"]("Gagal Di Tambahkan");');
+				$fungsi->flash('alert', 'Toast.fire({icon: "error",title: "Gagal ditambahkan!"})');
 				echo '<script type="text/javascript">' . $fungsi->flash('alert') . '</script>';
 			}
 		}
@@ -190,22 +227,22 @@ include 'head.php';
 		$kasbonsisa = $data->updateDB('pegawai', $editkas, 'nip', $_POST['nip']);
 		$result = $data->updateDB('gaji', $post, 'id_gaji', $_POST['id_gaji']);
 		if ($result) {
-			$fungsi->flash('alert', 'toastr["success"]("Berhasil Di Update");');
+			$fungsi->flash('alert', 'Toast.fire({icon: "success",title: "Berhasil diupdate!"})');
 			echo '<script type="text/javascript">' . $fungsi->flash('alert') . ' 
 	                				setTimeout(function(){ window.location="' . $fungsi->config()["url"] . '/admin/gaji.php?page=view&id=' . $_POST['id_gaji'] . '"; }, 2000);</script>';
 		} else {
-			$fungsi->flash('alert', 'toastr["error"]("Gagal Di Update");');
+			$fungsi->flash('alert', 'Toast.fire({icon: "error",title: "Gagal diupdate!"})');
 			echo '<script type="text/javascript">' . $fungsi->flash('alert') . '</script>';
 		}
 	} elseif (@$_GET['page'] == 'delete' && isset($_GET['id'])) {
 		$result = $data->deleteDB('gaji', 'id_gaji', $_GET['id']);
 		if ($result) {
-			$fungsi->flash('alert', 'toastr["success"]("Berhasil Di Hapus")');
+			$fungsi->flash('alert', 'Toast.fire({icon: "success",title: "Berhasil dihapus!"})');
 			echo '<script type="text/javascript">' . $fungsi->flash('alert') . '
 	                				$("#example").load(location.href + " #example");
 	                				setTimeout(function(){ window.location="' . $fungsi->config()["url"] . '/admin/gaji.php"; }, 2000);</script>';
 		} else {
-			$fungsi->flash('alert', 'toastr["error"]("Gagal Di Hapus")');
+			$fungsi->flash('alert', 'Toast.fire({icon: "error",title: "Gagal dihapus!"})');
 			echo '<script type="text/javascript">' . $fungsi->flash('alert') . '</script>';
 		}
 	} elseif (@$_GET['page'] == 'periode' && isset($_GET['nip']) && isset($_POST['periode']) && isset($_POST['submit'])) {

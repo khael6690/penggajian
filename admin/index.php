@@ -1,26 +1,74 @@
 <?php
 include 'built_in.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<?php
 include 'head.php';
 ?>
 
-<body class="bg-light">
-	<?php
-	include 'nav.php'
-	?>
+<body>
+	<script src="<?= $fungsi->config()['url'] ?>/assets/static/js/initTheme.js"></script>
 
-	<main>
-		<div class="container">
-			<div class="row mt-5 pt-5">
-				<div class="col text-center">
-					<h2>Selamat Datang Di Sistem Penggajian</h2>
-					<h3><?= $fungsi->config()['perusahaan']; ?></h3>
-					<h4><?= $fungsi->config()['alamat_perusahaan']; ?></h4>
+	<div id="app">
+		<?php
+		$title = 'dashboard';
+		include 'sidebar.php'
+		?>
+		<div id="main">
+			<header class="mb-3">
+				<a href="#" class="burger-btn d-block d-xl-none">
+					<i class="bi bi-justify fs-3"></i>
+				</a>
+			</header>
+
+			<div class="page-heading">
+				<div class="page-title">
+					<div class="row">
+						<div class="col-12 col-md-6 order-md-1 order-last">
+							<h3>Dashboard</h3>
+						</div>
+						<div class="col-12 col-md-6 order-md-2 order-first">
+							<nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item">
+										<a href="<?= $fungsi->config()['url'] ?>">Dashboard</a>
+									</li>
+									<li class="breadcrumb-item active" aria-current="page">
+										Home
+									</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</main>
 
-	<script type="text/javascript" src="<?= $fungsi->config()['url'] ?>/assets/js/jquery-2.1.0.js"></script>
+			<div class="page-content">
+				<section class="row">
+					<div class="col-md-12 col-sm-12">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<h4 class="card-title text-center">Selamat Datang di <?= $fungsi->config()['judul'] ?></h4>
+									<p class="card-text text-center">
+										<?= $fungsi->config()['perusahaan']; ?>
+									</p>
+									<p class="card-text text-center">
+										<?= $fungsi->config()['alamat_perusahaan']; ?>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+	<?php
+	include 'foot.php';
+	?>
 </body>
 
 </html>

@@ -4,117 +4,122 @@
 			<strong>Tambah Data</strong>
 		</h5>
 		<div class="card-body px-lg-5 pt-0">
-			<form method="post" class="needs-validation" style="color: #757575;" novalidate>
-				<div class="md-form">
-					<input type="text" name="nip" class="form-control" required>
-					<label>NIP</label>
-					<div class="invalid-feedback">
-						Tolong Diisi.
-					</div>
-				</div>
-				<div class="md-form">
-					<input type="text" name="nama" class="form-control" required>
-					<label>Nama Pegawai</label>
-					<div class="invalid-feedback">
-						Tolong Diisi.
-					</div>
-				</div>
-				<div class="btn-group d-flex flex-column justify-content-center" data-toggle="buttons">
-					<div>
+			<form method="post" class="form form-vertical needs-validation" novalidate>
+				<div class="form-body">
+					<div class="row">
+						<div class="col-12">
+							<div class="form-group">
+								<label for="nip">NIP</label>
+								<input type="text" name="nip" class="form-control" required>
+								<div class="invalid-feedback">
+									Tolong Diisi.
+								</div>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="nama">Nama Pegawai</label>
+								<input type="text" name="nama" class="form-control" required>
+								<div class="invalid-feedback">
+									Tolong Diisi.
+								</div>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="kelamin">Jenis Kelamin</label>
+								<select name="kelamin" class="form-select">
+									<option value="Laki-laki">Laki-laki</option>
+									<option value="Perempuan">Perempuan</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="id_jabatan">Jabatan </label>
+								<select name="id_jabatan" class="choices form-select">
+									<?php
+									$row = $data->viewDB('jabatan');
+									foreach ($row as $val) { ?>
+										<option value="<?= $val["id_jabatan"] ?>"><?= $val["jabatan"] ?></option>
+									<?php } ?>
 
-						<label>Jenis Kelamin</label>
-					</div>
-					<div>
-						<label class="btn btn-default active form-check-label">
-							<input class="form-check-input" type="radio" name="kelamin" value="Laki-laki" checked autocomplete="off"> Laki-laki
-						</label>
-						<label class="btn btn-default form-check-label">
-							<input class="form-check-input" type="radio" name="kelamin" value="Perempuan" autocomplete="off"> Perempuan
-						</label>
-
-					</div>
-				</div>
-				<div class="invalid-feedback">
-					Tolong Diisi.
-				</div>
-				<div class="md-form">
-					<select name="id_jabatan" class="mdb-select">
-						<option></option>
-						<?php
-						$row = $data->viewDB('jabatan');
-						foreach ($row as $val) {
-							echo '<option value="' . $val["id_jabatan"] . '">' . $val["jabatan"] . '</option>
-										';
-						}
-						?>
-
-					</select>
-					<label>Jabatan </label>
-					<div class="invalid-feedback">
-						Tolong Diisi.
-					</div>
-				</div>
-				<div class="md-form">
-					<input type="text" name="tempat_lahir" class="form-control" required>
-					<label>Tempat Lahir</label>
-					<div class="invalid-feedback">
-						Tolong Diisi.
-					</div>
-				</div>
-				<label>Tanggal Lahir</label>
-				<div class="md-form">
-					<input type="date" name="tgl_lahir" class="form-control" required>
-					<div class="invalid-feedback">
-						Tolong Diisi.
-					</div>
-				</div>
-				<div class="md-form">
-					<textarea name="alamat" class="md-textarea form-control" required></textarea>
-					<label>Alamat</label>
-					<div class="invalid-feedback">
-						Tolong Diisi.
-					</div>
-				</div>
-				<div class="md-form">
-					<input type="text" name="pendidikan_terakhir" class="form-control" required>
-					<label>Pendidikan Terakhir</label>
-					<div class="invalid-feedback">
-						Tolong Diisi.
-					</div>
-				</div>
-				<div class="md-form">
-					<input type="number" name="no_hp" class="form-control" required>
-					<label>Nomor Handphone</label>
-					<div class="invalid-feedback">
-						Tolong Diisi.
-					</div>
-				</div>
-				<div class="btn-group d-flex flex-column justify-content-center" data-toggle="buttons">
-					<div>
-
-						<label>Status</label>
-					</div>
-					<div>
-
-						<label class="btn btn-default active form-check-label">
-							<input class="form-check-input" type="radio" name="status" value="Belum Nikah" checked autocomplete="off"> Belum Nikah
-						</label>
-						<label class="btn btn-default form-check-label">
-							<input class="form-check-input" type="radio" name="status" value="Nikah" autocomplete="off"> Nikah
-						</label>
+								</select>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="tempat_lahir">Tempat Lahir</label>
+								<input type="text" name="tempat_lahir" class="form-control" required>
+								<div class="invalid-feedback">
+									Tolong Diisi.
+								</div>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="tgl_lahir">Tanggal Lahir</label>
+								<input type="date" name="tgl_lahir" class="form-control" required>
+								<div class="invalid-feedback">
+									Tolong Diisi.
+								</div>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="alamat">Alamat</label>
+								<textarea name="alamat" rows="5" class="form-control" style="resize:none ;" required></textarea>
+								<div class="invalid-feedback">
+									Tolong Diisi.
+								</div>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="pendidikan_terakhir">Pendidikan Terakhir</label>
+								<input type="text" name="pendidikan_terakhir" class="form-control" required>
+								<div class="invalid-feedback">
+									Tolong Diisi.
+								</div>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="no_hp">Nomor Handphone</label>
+								<input type="number" name="no_hp" class="form-control" required>
+								<div class="invalid-feedback">
+									Tolong Diisi.
+								</div>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="status">Status</label>
+								<select name="status" class="form-select">
+									<option value="Belum Nikah">Belum Nikah</option>
+									<option value="Nikah">Nikah</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="kasbon">Pinjaman Kasbon</label>
+								<input type="number" name="kasbon" class="form-control" required>
+								<div class="invalid-feedback">
+									Tolong Diisi.
+								</div>
+							</div>
+						</div>
+						<div class="col-12 d-flex justify-content-end">
+							<button type="submit" name="submit" class="btn btn-primary me-1 mb-1">
+								Submit
+							</button>
+							<a href="<?= $fungsi->config()['url'] ?>/admin/pegawai.php" class="btn btn-danger me-1 mb-1">
+								Batal
+							</a>
+						</div>
 					</div>
 				</div>
-				<div class="invalid-feedback">
-					Tolong Diisi.
-				</div>
-				<div class="md-form">
-					<input type="number" name="kasbon" class="form-control" required>
-					<label>Pinjaman Kasbon</label>
-					<div class="invalid-feedback">
-						Tolong Diisi.
-					</div>
-				</div>
-				<button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" name="submit" type="submit">Tambah</button>
 			</form>
 		</div>
 	</div>

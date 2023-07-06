@@ -6,7 +6,7 @@ class Gaji
 	public function config()
 	{
 		$config['url'] = 'http://localhost/penggajian';
-		$config['judul'] = 'Sistem Penggajian';
+		$config['judul'] = 'Sistem Keuangan dan Penggajian';
 		$config['perusahaan'] = 'PT. Mega Baja Cirebon';
 		$config['alamat_perusahaan'] = 'Jl. Jendral Sudirman No.24 Penggung Utara';
 		$config['nama_atasan'] = 'Tomi';
