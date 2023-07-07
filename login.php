@@ -34,7 +34,7 @@ if (isset($_SESSION['username'])) {
 					if (isset($_POST['submit'])) {
 						$fungsi->login($_POST['username'], $_POST['password']);
 					}
-					if (isset($_GET['login']) == 'gagal') {
+					if (isset($_SESSION['fail'])) {
 						echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
 							<strong>Login Gagal!</strong> Tolong periksa Username dan Password dengan benar.
 							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

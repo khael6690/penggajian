@@ -23,9 +23,9 @@ class Gaji
 		$jumlah = $cekuser->num_rows;
 		$hasil = $cekuser->fetch_array(MYSQLI_BOTH);
 		if ($jumlah == 0) {
-			header('location:login.php?login=gagal');
+			$this->flash('fail', 'Login gagal');
 		} elseif ($hasil['password'] != $password) {
-			header('location:login.php?login=gagal');
+			$this->flash('fail', 'Login gagal');
 		} elseif ($hasil['level'] == 1) {
 			$_SESSION['username'] = $hasil['username'];
 			$_SESSION['level'] = $hasil['level'];

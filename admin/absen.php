@@ -5,7 +5,7 @@ include 'built_in.php';
 <html lang="en">
 
 <?php
-include 'head.php';
+include '../head.php';
 ?>
 
 <body>
@@ -16,105 +16,102 @@ include 'head.php';
 		$title = 'master';
 		include 'sidebar.php'
 		?>
-		<div id="main">
-			<header class="mb-3">
-				<a href="#" class="burger-btn d-block d-xl-none">
-					<i class="bi bi-justify fs-3"></i>
-				</a>
-			</header>
-
-			<div class="page-heading">
-				<div class="page-title">
-					<div class="row">
-						<div class="col-12 col-md-6 order-md-1 order-last">
-							<h3>Absensi</h3>
-						</div>
-						<div class="col-12 col-md-6 order-md-2 order-first">
-							<nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item">
-										<a href="<?= $fungsi->config()['url'] ?>">Dashboard</a>
-									</li>
-									<li class="breadcrumb-item active" aria-current="page">
-										Absensi
-									</li>
-								</ol>
-							</nav>
+		<div id="main" class="layout-navbar">
+			<?php include '../navbar.php' ?>
+			<div id="main-content">
+				<div class="page-heading">
+					<div class="page-title">
+						<div class="row">
+							<div class="col-12 col-md-6 order-md-1 order-last">
+								<h3>Absensi</h3>
+							</div>
+							<div class="col-12 col-md-6 order-md-2 order-first">
+								<nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item">
+											<a href="<?= $fungsi->config()['url'] ?>">Dashboard</a>
+										</li>
+										<li class="breadcrumb-item active" aria-current="page">
+											Absensi
+										</li>
+									</ol>
+								</nav>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="page-content">
-				<section class="row justify-content-center">
-					<?php
-					if (@$_GET['page'] == 'tambah') {
+				<div class="page-content">
+					<section class="row justify-content-center">
+						<?php
+						if (@$_GET['page'] == 'tambah') {
 
-						include 'page/absen/tambah.php';
-					} elseif (@$_GET['page'] == 'update' && isset($_GET['id'])) {
-						$result = $data->viewDB('absensi', 'id_absen', $_GET['id']);
-						$nama = $data->viewDB('pegawai', 'nip', $result[0]['nip']);
-						if ($_GET['id'] != $result[0]['id_absen']) {
-							header('location:absen.php');
-						}
+							include 'page/absen/tambah.php';
+						} elseif (@$_GET['page'] == 'update' && isset($_GET['id'])) {
+							$result = $data->viewDB('absensi', 'id_absen', $_GET['id']);
+							$nama = $data->viewDB('pegawai', 'nip', $result[0]['nip']);
+							if ($_GET['id'] != $result[0]['id_absen']) {
+								header('location:absen.php');
+							}
 
-						include 'page/absen/update.php';
-					} else { ?>
-						<div class="col-lg-12">
-							<div class="card">
-								<div class="card-header">
-									<h3 class="text-center">Data Absensi</h3>
-								</div>
-								<div class="card-body">
-									<a href="?page=tambah" class="btn btn-primary">Tambah Data</a>
-									<div class="table-responsive">
-										<table id="example" class="table table-striped">
-											<thead>
-												<tr>
-													<th>#</th>
-													<th>Periode</th>
-													<th>Nama Pegawai</th>
-													<th>Kehadiran</th>
-													<th>Izin</th>
-													<th>Jam Lembur</th>
-													<th>Aksi</th>
-												</tr>
-											</thead>
-											<tbody>
-												<?php
-												$no = 1;
-												$row = $data->viewDB('absensi');
-												foreach ($row as $val) {
-													$pegawai = $data->viewDB('pegawai', 'nip', $val['nip']);
-												?>
+							include 'page/absen/update.php';
+						} else { ?>
+							<div class="col-lg-12">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="text-center">Data Absensi</h3>
+									</div>
+									<div class="card-body">
+										<a href="?page=tambah" class="btn btn-primary">Tambah Data</a>
+										<div class="table-responsive">
+											<table id="example" class="table table-striped">
+												<thead>
 													<tr>
-														<td><?= $no ?></td>
-														<td><?= date('F Y', strtotime($val['periode'])) ?></td>
-														<td><?= $pegawai[0]['nama'] ?> (<?= $val['nip'] ?>)</td>
-														<td><?= $val['masuk'] ?></td>
-														<td><?= $val['izin'] ?></td>
-														<td><?= $val['jam_lembur'] ?></td>
-														<td>
-															<a href="?page=update&id=<?= $val['id_absen'] ?>" class="btn icon btn-primary m-1"><i class="bi bi-pencil"></i></a>
-															<a href="?page=delete&id=<?= $val['id_absen'] ?>" class="btn icon btn-danger m-1" onclick="return confirm('Apakah Ingin Menghapus Data Ini?');"><i class="bi bi-trash"></i></a>
-														</td>
+														<th>#</th>
+														<th>Periode</th>
+														<th>Nama Pegawai</th>
+														<th>Kehadiran</th>
+														<th>Izin</th>
+														<th>Jam Lembur</th>
+														<th>Aksi</th>
 													</tr>
-												<?php $no++;
-												}
-												?>
-											</tbody>
-										</table>
+												</thead>
+												<tbody>
+													<?php
+													$no = 1;
+													$row = $data->viewDB('absensi');
+													foreach ($row as $val) {
+														$pegawai = $data->viewDB('pegawai', 'nip', $val['nip']);
+													?>
+														<tr>
+															<td><?= $no ?></td>
+															<td><?= date('F Y', strtotime($val['periode'])) ?></td>
+															<td><?= $pegawai[0]['nama'] ?> (<?= $val['nip'] ?>)</td>
+															<td><?= $val['masuk'] ?></td>
+															<td><?= $val['izin'] ?></td>
+															<td><?= $val['jam_lembur'] ?></td>
+															<td>
+																<a href="?page=update&id=<?= $val['id_absen'] ?>" class="btn icon btn-primary m-1"><i class="bi bi-pencil"></i></a>
+																<a href="?page=delete&id=<?= $val['id_absen'] ?>" class="btn icon btn-danger m-1" onclick="return confirm('Apakah Ingin Menghapus Data Ini?');"><i class="bi bi-trash"></i></a>
+															</td>
+														</tr>
+													<?php $no++;
+													}
+													?>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					<?php } ?>
-				</section>
+						<?php } ?>
+					</section>
+				</div>
 			</div>
 		</div>
 	</div>
 	<?php
-	include 'foot.php';
+	include '../foot.php';
 
 	if (@$_GET['page'] == 'tambah' && isset($_POST['submit'])) {
 		$cekjabatan = $data->viewDB("pegawai", "nip", $_POST['nip']);
